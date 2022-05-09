@@ -7,10 +7,12 @@ import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/v1/player")
 @AllArgsConstructor
+@CrossOrigin
 public class PlayerController {
 
     private final PlayerService playerService;
@@ -25,11 +27,29 @@ public class PlayerController {
         return playerService.getPlayerById(id);
     }
 
+    @GetMapping("/findByNumber")
+    public Optional<Player> findPlayerByNumber(@RequestParam Integer number) {
+        return playerService.getPlayerByNumber(number);
+    }
+
+
+    @GetMapping("/findlastname")
+    public Optional<Player> findPlayerByLastName(@RequestParam String lastname) {
+        return playerService.getPlayerByLastName(lastname);
+    }
+
+    @GetMapping("findallbylastname")
+    public Optional<List<Player>> findAllByLastName(@RequestParam String lastname) {
+        return playerService.getAllPlayersByLastName(lastname);
+    }
+
     @PostMapping("/add")
     public String addPlayer(@RequestBody Player player) {
         playerService.addPlayer(player);
         return "new player added";
     }
+
+
 
 
     @PostMapping("/update")

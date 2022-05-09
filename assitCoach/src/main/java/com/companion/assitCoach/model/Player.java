@@ -3,6 +3,7 @@ package com.companion.assitCoach.model;
 import com.companion.assitCoach.Stats;
 import lombok.Data;
 import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import javax.annotation.Generated;
@@ -12,14 +13,16 @@ import javax.annotation.Generated;
 public class Player {
     @Id
     private String id;
-
-    private Integer Number;
+    @Indexed(unique = true)
+    private Integer number;
     private String firstName;
     private String lastName;
     private Integer age;
     private String position;
     private String team;
     private Stats stats;
+
+    private String comment;
 
     public Player(String firstName, String lastName, Integer age, String position, String team, Stats stats,Integer number) {
         this.firstName = firstName;
@@ -28,6 +31,7 @@ public class Player {
         this.position = position;
         this.team = team;
         this.stats = stats;
-        this.Number=number;
+        this.number=number;
+        this.comment="";
     }
 }
